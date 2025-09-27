@@ -350,7 +350,7 @@ class PanelManager {
       pipLabel.setAttribute("cui-areatype", "panel");
       pipLabel.setAttribute("skipintoolbarset", "true");
       pipLabel.textContent = "Picture-in-Picture";
-      pipLabel.style.cssText = "font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 1em; display: block; font-weight: 700;";
+      pipLabel.style.cssText = "font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 1em; display: block; font-weight: 600;";
 
       // Small status text under the main label
       const pipSubLabel = document.createElement("span");
