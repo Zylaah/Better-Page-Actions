@@ -16,19 +16,7 @@ Enhanced unified extensions panel, highly Arc Inspired.
 - **Workspace Color Integration**: Automatically adapts to Zen workspace color changes
 - **Extras Menu**: Context menu with cache clearing, cookie management, and permissions
 
-
-## Installation
-
-Install via Sine
-
-## Compatibility
-
-- Zen browser
-
 ## Author
 
 Zylaah
 
-## License
-
-MIT License
