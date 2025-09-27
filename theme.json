@@ -1,0 +1,26 @@
+{
+    "id": "betterpageactions",
+    "name": "Better Page Actions",
+    "description": "Enhanced unified extensions panel with security info, PiP toggle, action buttons, and improved button positioning.",
+    "homepage": "https://github.com/Zylaah/Better-Page-Actions",
+    "image": "https://github.com/Zylaah/Better-Page-Actions/blob/main/image.png?raw=true",
+    "js": "https://raw.githubusercontent.com/Zylaah/Better-Page-Actions/main/better-page-actions.uc.js",
+    "css": "https://raw.githubusercontent.com/Zylaah/Better-Page-Actions/main/chrome.css",
+    "readme": "https://raw.githubusercontent.com/Zylaah/Better-Page-Actions/main/README.md",
+    "author": "Zylaah",
+    "version": "1.0.0",
+    "tags": [
+        "zen",
+        "urlbar",
+        "extensions",
+        "security",
+        "pip",
+        "screenshot",
+        "share",
+        "copy",
+        "customize"
+    ],
+    "createdAt": "2025-01-27",
+    "updatedAt": "2025-01-27",
+    "fork": ["zen"]
+}
