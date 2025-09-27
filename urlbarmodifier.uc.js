@@ -1058,7 +1058,7 @@ class PanelManager {
         debugLog("Unified security elements not found or no current URI");
         return;
       }
-      
+
       // Force clear any cached security state
       securityStatus.removeAttribute('data-cached-state');
       securityText.removeAttribute('data-cached-text');
@@ -1075,7 +1075,7 @@ class PanelManager {
           securityUI = currentBrowser.securityUI;
           securityState = securityUI.state;
           debugLog(`Security UI state: ${securityState}`);
-        } else {
+      } else {
           debugLog("No security UI available for current browser");
         }
       } catch (e) {
@@ -1844,6 +1844,114 @@ if (!window.urlBarModifierInitialized) {
   // Make panelManager globally accessible for other scripts
   window.panelManager = panelManager;
 
+  // Extension Button Management (merged from extension-button.uc.js)
+  let extensionButtonAttempts = 0;
+  const MAX_EXTENSION_BUTTON_ATTEMPTS = 20; // Try for about 10 seconds (20 * 500ms)
+
+  function updateExtensionButtonVisibilityAndPosition() {
+    let unifiedExtensionsButton = document.getElementById('unified-extensions-button');
+    let pageActionButtons = document.getElementById('page-action-buttons');
+    let urlbar = document.getElementById('urlbar');
+
+    if (!unifiedExtensionsButton) {
+      // If button doesn't exist yet, try to run moveExtensionButton again if attempts remain.
+      if (extensionButtonAttempts < MAX_EXTENSION_BUTTON_ATTEMPTS) {
+        setTimeout(moveExtensionButton, 100); // Try to make sure it's there
+      }
+      return;
+    }
+
+    let isFloating = false;
+    if (urlbar) {
+      isFloating = urlbar.getAttribute('breakout-extend') === 'true' ||
+                     urlbar.getAttribute('zen-floating-urlbar') === 'true';
+    }
+
+    let isBlankPage = false;
+    let identityBox = document.getElementById('identity-box');
+    if (identityBox) {
+      isBlankPage = identityBox.getAttribute('pageproxystate') === 'invalid';
+    } else if (typeof gBrowser !== 'undefined' && gBrowser.selectedBrowser) {
+      const currentSpec = gBrowser.selectedBrowser.currentURI.spec;
+      isBlankPage = ['about:blank', 'about:newtab', 'about:home'].includes(currentSpec);
+    } else {
+      // Default to considering it a blank page if identityBox and gBrowser are unavailable for checks.
+      isBlankPage = true;
+    }
+
+    if (isFloating || isBlankPage) {
+      unifiedExtensionsButton.style.display = 'none';
+    } else {
+      unifiedExtensionsButton.style.display = ''; // Revert to default display (e.g., flex, inline-flex)
+      
+      // Use CSS order to ensure the button appears at the extreme right
+      unifiedExtensionsButton.style.order = '9999'; // High order value to ensure it's last
+      unifiedExtensionsButton.style.marginLeft = '-10px';
+      unifiedExtensionsButton.style.marginRight = '-4px';
+      
+      // Add right padding to identity-box for better spacing
+      if (identityBox) {
+        identityBox.style.paddingRight = '0px';
+      }
+      
+      if (pageActionButtons) {
+        // Ensure page-action-buttons uses flexbox layout for order to work
+        pageActionButtons.style.display = 'flex';
+        pageActionButtons.style.alignItems = 'center';
+        
+        if (unifiedExtensionsButton.parentElement !== pageActionButtons) {
+          pageActionButtons.appendChild(unifiedExtensionsButton);
+        }
+      } else {
+        // If pageActionButtons is missing when we need to show the button, trigger moveExtensionButton's retry.
+        if (extensionButtonAttempts < MAX_EXTENSION_BUTTON_ATTEMPTS) {
+          setTimeout(moveExtensionButton, 100);
+        }
+      }
+    }
+  }
+
+  function moveExtensionButton() {
+    try {
+      let unifiedExtensionsButton = document.getElementById('unified-extensions-button');
+      let pageActionButtons = document.getElementById('page-action-buttons');
+
+      if (unifiedExtensionsButton && pageActionButtons) {
+        if (unifiedExtensionsButton.parentElement !== pageActionButtons) {
+          pageActionButtons.appendChild(unifiedExtensionsButton);
+          debugLog('Unified Extensions Button moved to page-action-buttons.');
+        }
+        
+        // Apply order styling immediately
+        unifiedExtensionsButton.style.order = '9999';
+        unifiedExtensionsButton.style.marginLeft = 'auto';
+        unifiedExtensionsButton.style.marginRight = '-4px';
+        
+        // Add right padding to identity-box for better spacing
+        let identityBox = document.getElementById('identity-box');
+        if (identityBox) {
+          identityBox.style.paddingRight = '0px';
+        }
+        
+        // Ensure page-action-buttons uses flexbox layout for order to work
+        pageActionButtons.style.display = 'flex';
+        pageActionButtons.style.alignItems = 'center';
+        
+        extensionButtonAttempts = MAX_EXTENSION_BUTTON_ATTEMPTS; // Stop timed retries for finding these specific elements
+        updateExtensionButtonVisibilityAndPosition(); // Initial visibility update
+      } else {
+        if (extensionButtonAttempts < MAX_EXTENSION_BUTTON_ATTEMPTS) {
+          extensionButtonAttempts++;
+          setTimeout(moveExtensionButton, 500);
+        } else {
+          console.error('Max attempts reached by timer. Could not find unifiedExtensionsButton and/or pageActionButtons for initial move.');
+        }
+      }
+    } catch (e) {
+      console.error('Error in moveExtensionButton:', e);
+    }
+  }
+
   // Listen for tab changes and location changes to update security info in unified panel
   if (typeof gBrowser !== "undefined") {
     gBrowser.tabContainer.addEventListener("TabSelect", () => {
@@ -2001,6 +2109,9 @@ if (!window.urlBarModifierInitialized) {
       } else {
         copyUrlButton.style.display = '';
       }
+      
+      // Also update extension button visibility
+      updateExtensionButtonVisibilityAndPosition();
     } catch (err) {
       console.error("Error updating copy URL button visibility:", err);
     }
@@ -2140,6 +2251,9 @@ if (!window.urlBarModifierInitialized) {
   // Create the button immediately
   createCopyUrlToolbarButton();
 
+  // Move extension button immediately
+  setTimeout(moveExtensionButton, 1500);
+
   // Setup CSS property observer for workspace color changes
   setupCSSPropertyObserver();
 
@@ -2178,6 +2292,8 @@ if (!window.urlBarModifierInitialized) {
 
     if (needsUpdate) {
       updateCopyUrlButtonVisibility();
+      // Also update extension button visibility and position
+      updateExtensionButtonVisibilityAndPosition();
     }
   });
 
@@ -2238,6 +2354,8 @@ if (!window.urlBarModifierInitialized) {
             debugLog("URLBarModifier: Unified extensions button detected, creating copy URL button...");
             setTimeout(() => {
               createCopyUrlToolbarButton();
+              // Also move the extension button
+              moveExtensionButton();
             }, 100);
           }
           // Check if page-action-buttons was added/recreated
@@ -2245,6 +2363,8 @@ if (!window.urlBarModifierInitialized) {
             debugLog("URLBarModifier: Page action buttons detected, creating copy URL button...");
             setTimeout(() => {
               createCopyUrlToolbarButton();
+              // Also move the extension button
+              moveExtensionButton();
             }, 200);
           }
         });
