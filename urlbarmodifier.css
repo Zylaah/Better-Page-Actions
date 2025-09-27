@@ -1,0 +1,232 @@
+/* URLBarModifier CSS Styles */
+
+#identity-box[pageproxystate="valid"].verifiedDomain .identity-box-button {
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+}
+
+#identity-box[pageproxystate="valid"].chromeUI .identity-box-button {
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+}
+
+
+#unified-extensions-button:is(:hover:active, [open], [checked]) > * {
+  background-color: transparent !important;
+}
+
+
+#unified-extensions-button:is(:hover, [open="fasle"], [checked="false"]) > * {
+  background-color: transparent !important;
+}
+
+/* Copy URL button styling - same as unified extensions button */
+#unified-copy-url-toolbar-button {
+  -moz-context-properties: fill;
+  fill: currentColor;
+  list-style-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'%3E%3Cpath fill='context-fill' d='M6.17 6.309a5.317 5.317 0 0 1 7.522 0a5.326 5.326 0 0 1 0 7.529l-1.43 1.43a.75.75 0 0 0 1.06 1.061l1.43-1.431a6.826 6.826 0 0 0 0-9.65a6.817 6.817 0 0 0-9.644 0l-2.86 2.864A6.826 6.826 0 0 0 6.69 19.749a.75.75 0 1 0 .083-1.498a5.326 5.326 0 0 1-3.465-9.08z'/%3E%3Cpath fill='context-fill' d='M17.31 4.251a.75.75 0 0 0-.083 1.498a5.326 5.326 0 0 1 3.465 9.08L17.83 17.69a5.317 5.317 0 0 1-7.523 0a5.326 5.326 0 0 1 0-7.528l1.43-1.432a.75.75 0 0 0-1.06-1.06l-1.43 1.431a6.826 6.826 0 0 0 0 9.65a6.817 6.817 0 0 0 9.644 0l2.86-2.864A6.826 6.826 0 0 0 17.31 4.251'/%3E%3C/svg%3E") !important;
+}
+
+/* Copy URL button hover states - same as unified extensions button */
+#unified-copy-url-toolbar-button:is(:hover:active, [open], [checked]) > * {
+  background-color: transparent !important;
+}
+
+#unified-copy-url-toolbar-button:is(:hover, [open="false"], [checked="false"]) > * {
+  background-color: transparent !important;
+}
+
+/* Copy URL button positioning in page-action-buttons */
+#page-action-buttons #unified-copy-url-toolbar-button {
+  order: 9998 !important;
+  margin-left: 4px !important;
+  margin-right: 0px !important;
+  cursor: pointer;
+}
+
+#unified-extensions-button {
+  cursor: pointer;
+  -moz-context-properties: fill;
+  fill: currentColor;
+  list-style-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='context-fill' stroke-width='2'%3E%3Cpath d='M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2s7.071 0 8.535 1.464C22 4.93 22 7.286 22 12s0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z'/%3E%3Cpath d='M10 14a2 2 0 1 1 0 4a2 2 0 0 1 0-4Z'/%3E%3Ccircle cx='2' cy='2' r='2' transform='matrix(0 -1 -1 0 16 10)'/%3E%3Cpath stroke-linecap='round' d='M14 16h5m-9-8H5m0 8h1m13-8h-1'/%3E%3C/g%3E%3C/svg%3E") !important;
+}
+
+/* When unified extensions panel is open, use the filled variant */
+#unified-extensions-button[open],
+#unified-extensions-button[aria-expanded="true"] {
+  -moz-context-properties: fill;
+  fill: light-dark(color-mix(in srgb, var(--zen-primary-color) 50%, black), var(--zen-primary-color)) !important;
+  list-style-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='context-fill' d='M10 17.25a1.25 1.25 0 1 1 0-2.5a1.25 1.25 0 0 1 0 2.5M15.25 8a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0'/%3E%3Cpath fill='context-fill' fill-rule='evenodd' d='M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2s7.071 0 8.535 1.464C22 4.93 22 7.286 22 12s0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12m8 6.75a2.75 2.75 0 1 1 0-5.5a2.75 2.75 0 0 1 0 5.5M16.75 8a2.75 2.75 0 1 1-5.5 0a2.75 2.75 0 0 1 5.5 0m-3.5 8a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75M10 7.25a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1 0-1.5zM4.25 16a.75.75 0 0 1 .75-.75h1a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75M19 7.25a.75.75 0 0 1 0 1.5h-1a.75.75 0 0 1 0-1.5z' clip-rule='evenodd'/%3E%3C/svg%3E") !important;
+}
+
+
+/* Extension Grid Styling */
+@media (-moz-bool-pref: "mod.extension.viewgrid") {
+  /* Desired width */
+  #unified-extensions-view { 
+    width: calc(var(--menu-panel-width) - 30px) !important; 
+  }
+
+  /* Hide header/description/texts and settings icon for each extension */
+  #unified-extensions-description,
+  #unified-extensions-view .panel-header,
+  #unified-extensions-view > :nth-child(2),
+  .unified-extensions-item-name,
+  .unified-extensions-item-message,
+  .unified-extensions-item-message-hover,
+  .unified-extensions-item-message-hover-menu-button,
+  .unified-extensions-item-menu-button { 
+    display: none !important; 
+  }
+
+  /* Arrange extensions in a centered grid */
+  #overflowed-extensions-list, 
+  #unified-extensions-area, 
+  .unified-extensions-list {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    justify-content: left !important;
+    align-items: center !important;
+    margin-inline: 4px !important;
+    width: 0px !important;
+  }
+  
+  
+  #unified-extensions-area { 
+    padding-block-end: 10px !important;
+  }
+
+  /* Center buttons and tidy margins */
+  .unified-extensions-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 12px !important;
+  }
+  
+  .unified-extensions-item-icon,
+  .unified-extensions-item .webextension-browser-action.subviewbutton > .toolbarbutton-badge-stack {
+    margin: 0px !important;
+  }
+  
+  panelview .unified-extensions-item-action-button { 
+    padding: 10px 10px !important; 
+  }
+
+  #unified-extensions-view toolbarseparator { 
+    margin-top: 0px !important; 
+  }
+
+  /* Hide the Manage Extensions footer button */
+  #unified-extensions-manage-extensions { 
+    display: none !important; 
+  }
+}
+
+/* Security container - use flexbox for proper alignment */
+#unified-security-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+}
+
+/* Security status - natural width with proper spacing */
+#unified-security-status {
+  flex: 0 0 auto !important;
+  margin-right: 16px !important;
+  max-width: fit-content !important;
+}
+
+/* Extras button - aligned to extreme right */
+#unified-extras-button {
+  margin-left: auto !important;
+  flex-shrink: 0 !important;
+}
+
+
+
+/* Panel Positioning Styles */
+#unified-extensions-panel {
+  margin-left: -108px !important;
+}
+
+#unified-extensions-panel[position="bottomright topright"] {
+  position: fixed !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+@media (-moz-bool-pref: "mod.extension.viewgrid") {
+  #unified-extensions-view toolbarseparator {
+    margin-top: 0px !important;
+  }
+}
+
+panel toolbarseparator {
+  margin: 0 !important;
+}
+
+#identity-permission-box {
+  display: none !important;
+}
+
+
+#unified-extensions-messages-container{
+  margin: 0 !important;
+}
+
+.unified-extensions-item-icon,
+.unified-extensions-item .webextension-browser-action.subviewbutton > .toolbarbutton-badge-stack > .toolbarbutton-icon {
+  margin-left: 5px !important;
+}
+
+.subviewbutton-iconic {
+  & > .toolbarbutton-icon {
+    margin-left: 6px !important;
+    margin-bottom: 2px !important;
+  }
+}
+
+#unified-extensions-area {
+  .unified-extensions-item-action-button {
+    background-color: color-mix(in srgb, currentcolor 6%, transparent) !important;
+    width: 48px;
+  }
+}
+
+#overflowed-extensions-list {
+  .unified-extensions-item-action-button {
+    width: 48px;
+  }
+}
+
+#ue-add-extension-button {
+  height: 37px;
+}
+
+#unified-extensions-area {
+  .unified-extensions-item-action-button:hover {
+    background-color: color-mix(in srgb, currentcolor 10%, transparent) !important;
+    cursor: pointer !important;
+  }
+}
+
+:is(panelview, #widget-overflow-fixed-list) .toolbaritem-combined-buttons {
+  margin: 4.8px !important;
+}
+
+:is(panelview .toolbarbutton-1, toolbarbutton.subviewbutton, .widget-overflow-list .toolbarbutton-1, .toolbaritem-combined-buttons:is(:not([cui-areatype="toolbar"]), [overflowedItem="true"]) > toolbarbutton) {
+  &:not([disabled]):hover {
+    background-color: color-mix(in srgb, currentcolor 10%, transparent) !important;
+    cursor: pointer !important;
+  }
+
+#unified-extensions-panel .unified-extensions-item {
+  margin-block: 4.8px !important;
+}
+
+
+
