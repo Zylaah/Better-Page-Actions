@@ -4,7 +4,7 @@ Enhanced unified extensions panel, highly Arc Inspired.
 
 <img width="251" height="372" alt="screenshot" src="https://github.com/user-attachments/assets/fdb8b6be-0e91-4824-ac19-ce64404fbab7" />
 
-<hr>
+
 ## Features
 
 - **Arc Styled Extension Panel and Copy URL Button**
